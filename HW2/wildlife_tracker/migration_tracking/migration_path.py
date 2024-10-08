@@ -3,7 +3,6 @@ from typing import Optional, Any
 from wildlife_tracker.habitat_management.habitat import Habitat
 
 class MigrationPath:
-    start_date: str
     start_location: Habitat
     destination: Habitat
     path_id: int
@@ -12,13 +11,11 @@ class MigrationPath:
 
     def __init__(self, 
                  path_id,
-                 start_date,
                  start_location,
                  destination,
                  species,
                  duration=None):
         self.path_id = path_id
-        self.start_date = start_date
         self.start_location = start_location
         self.destination = destination
         self.species = species
