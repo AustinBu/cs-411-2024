@@ -1,0 +1,14 @@
+CodeChuckle is introducing a new diff tool: SnickerSync—why merge in silence when you can sync 
+with a snicker? The PMs have a solid understanding of what it means to "sync with a snicker" and 
+now they want to run some user studies. Your team has already created a vanilla interface capable 
+of syncing with the base GiggleGit packages.
+
+1. 
+Goal: Users should be able to resolve merges and have a laugh
+Non-Goal: Add/Change SnickerSync features based on user response
+Non-Functional: Allow for role management
+    Functional: Heads should have a special role to delete, create, and edit snickers
+    Functional: Heads should be able to assign different levels of funny
+Non-Functional: User study should be randomly assigned between control and test
+    Functional: Use a random algorithim to assign test subjects
+    Functional: Performance tracking
