@@ -69,10 +69,23 @@ class BattleModel:
         return winner.meal
 
     def clear_combatants(self):
+        """ 
+        Clears the combatants list. 
+
+        Args: 
+        self 
+        """
         logger.info("Clearing the combatants list.")
         self.combatants.clear()
 
     def get_battle_score(self, combatant: Meal) -> float:
+        """ 
+        Calculates and logs the score of a battle using the combatant meal, price, cuisine, 
+        and difficulty. 
+
+        Args: 
+        combatant (Meal): The combatant's meal
+        """ 
         difficulty_modifier = {"HIGH": 1, "MED": 2, "LOW": 3}
 
         # Log the calculation process
@@ -88,10 +101,27 @@ class BattleModel:
         return score
 
     def get_combatants(self) -> List[Meal]:
+        """ 
+        Gets the current list of combatants. 
+
+        Args: 
+        self 
+        """ 
         logger.info("Retrieving current list of combatants.")
         return self.combatants
 
     def prep_combatant(self, combatant_data: Meal):
+        """ 
+        Adds combatant to combatant list and logs the addition of combatant and current state of 
+        combatants. 
+
+        Args: 
+        combatant_data (Meal)
+
+        Raises: 
+        ValueError: If the combatant list is full, more combatants cannot be added. 
+        here
+        """ 
         if len(self.combatants) >= 2:
             logger.error("Attempted to add combatant '%s' but combatants list is full", combatant_data.meal)
             raise ValueError("Combatant list is full, cannot add more combatants.")
