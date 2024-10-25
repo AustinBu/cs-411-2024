@@ -1,0 +1,34 @@
+CodeChuckle is a startup whose product is GiggleGit, a version control system “where merges are managed by memes." (It saddens me to say that this was a joke written by ChatGPT for 131)
+
+You have just been hired as employee number n for some small number n. They have the dev chops to make a demo, but you are their first serious developer. 
+
+Theme: Get GiggleGit demo into a stable enough alpha to start onboarding some adventurous clients
+Epic: Onboarding experience 
+
+1. 
+As a vanilla Git power-user that has never seen GiggleGit before, I want to…
+    have a smooth transition to GiggleGit. I don't want to have to read a book called the 
+    Beginner's Guide to Giggling or take a two week course on How to Chuckle. I'm not familiar
+    with memes and might be held back by the system.
+
+As a team lead onboarding an experienced GiggleGit user, I want to…
+    have advanced tools at my disposal. Since my team is familiar with GiggleGit, I'm looking for
+    features more advanced than what GitHub has, such as better permissions management or codebase 
+    protection.
+
+2. 
+As a GiggleGit user migrating a project over, I want to…
+    have an integration between GiggleGit and popular alternatives such as GitHub. I like how
+    GiggleGit works, but it needs compatability with industry standards or it's too much work
+    to migrate to. I want to be able to hit the ground running without much downtime on projects.
+
+Task: Allow GitHub repos to be imported into GiggleGit
+    Ticket 1: Design a compiler that can process GitHub repos into GiggleGit chuckles
+        At minimum a script that can parse through the GitHub nodes and convert it into GiggleGit
+        in order to keep versioning intact
+    Ticket 2: Create a guide or documentation for the conversion process
+        A simple one pager or readme will suffice, conversion should ideally be only a few clicks
+
+3. 
+This is not a user story as it doesn't show a motive behind the wish. This sounds more like a
+requirement.
