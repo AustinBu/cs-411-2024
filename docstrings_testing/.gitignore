@@ -1,0 +1,5 @@
+*/meal_max_venv/*
+*.pyc
+*/tests/*
+!*/tests/test_kitchen_model.py
+!*/tests/test_battle_model.py
