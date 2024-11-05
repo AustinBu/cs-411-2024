@@ -53,6 +53,10 @@ check_db() {
 #
 ##########################################################
 
+clear_catalog() {
+  echo "Clearing the playlist..."
+  curl -s -X DELETE "$BASE_URL/clear-catalog" | grep -q '"status": "success"'
+}
 
 create_meal() {
     meal=$1
@@ -61,8 +65,8 @@ create_meal() {
     difficulty=$4
 
     echo "Adding meal ($meal, $cuisine, $price, $difficulty) to the playlist..."
-    curl -v -X POST "$BASE_URL/create-meal" -H "Content-Type: application/json" \
-        -d "{\"meal\":\"$meal\", \"cuisine\":$cuisine, \"price\":\"$price\", \"difficulty\":$difficulty}" | grep -q '"status": "success"'
+    curl -s -X POST "$BASE_URL/create-meal" -H "Content-Type: application/json" \
+        -d "{\"meal\":\"$meal\", \"cuisine\":\"$cuisine\", \"price\":$price, \"difficulty\":\"$difficulty\"}" | grep -q '"status": "success"'
 
     if [ $? -eq 0 ]; then
         echo "Meal added successfully."
@@ -76,7 +80,7 @@ delete_meal_by_id() {
     meal_id=$1
 
     echo "Deleting meal by ID ($meal_id)..."
-    response=$(curl -s -X DELETE "$BASE_URL/delete-meal/$meal_name")
+    response=$(curl -s -X DELETE "$BASE_URL/delete-meal/$meal_id")
     if echo "$response" | grep -q '"status": "success"'; then
         echo "Meal deleted successfully by ID ($meal_id)."
     else
@@ -89,7 +93,7 @@ get_leaderboard() {
     sort_by=$1
 
     echo "Getting leaderboard by ($sort_by)..."
-    response=$(curl -s -X GET "$BASE_URL/get-leaderboard/$meal_id")
+    response=$(curl -s -X GET "$BASE_URL/leaderboard?sort=$sort_by")
     if echo "$response" | grep -q '"status": "success"'; then
         echo "Leaderboard retrieved successfully."
         if [ "$ECHO_JSON" = true ]; then
@@ -136,24 +140,10 @@ get_meal_by_name() {
   fi
 }
 
-update_meal_stats() {
-    meal_id=$1
-    result=$2
-
-    echo "Updating meal ($meal_id) with ($result)..."
-    curl -s -X POST "$BASE_URL/update-meal-stats" -H "Content-Type: application/json" \
-    -d "{\"meal_id\":\"$meal_id\", \"rsult\":\"$result\"}" | grep -q '"status": "success"'
-
-    if [ $? -eq 0 ]; then
-        echo "Meal updated successfully."
-    else
-        echo "Failed to update meal."
-        exit 1
-    fi
-}
-
 check_health
 check_db
+
+clear_catalog
 
 create_meal "Meal1" "Cuisine1" 1.00 "LOW"
 create_meal "Meal2" "Cuisine2" 1.00 "LOW"
@@ -170,7 +160,3 @@ delete_meal_by_id 1
 get_leaderboard "wins"
 get_meal_by_id 2
 get_meal_by_name "Meal3"
-
-update_meal_stats 2 "win"
-
-get_leaderboard
