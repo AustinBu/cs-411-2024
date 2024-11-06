@@ -7,7 +7,7 @@ from music_collection.models.song_model import Song
 @pytest.fixture()
 def playlist_model():
     """Fixture to provide a new instance of PlaylistModel for each test."""
-    return PlaylistModel() 
+    return PlaylistModel()
 
 @pytest.fixture
 def mock_update_play_count(mocker):

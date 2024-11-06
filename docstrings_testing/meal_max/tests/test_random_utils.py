@@ -42,7 +42,7 @@ def test_get_random_timeout(mocker):
         get_random()
 
 def test_get_random_invalid_response(mock_random_org):
-    """Simulate  an invalid response (non-digit)."""
+    """Simulate an invalid response (non-float)."""
     mock_random_org.text = "invalid_response"
 
     with pytest.raises(ValueError, match="Invalid response from random.org: invalid_response"):
