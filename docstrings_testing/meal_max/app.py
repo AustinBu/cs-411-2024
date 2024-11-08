@@ -115,7 +115,7 @@ def add_meal() -> Response:
         app.logger.error("Failed to add combatant: %s", str(e))
         return make_response(jsonify({'error': str(e)}), 500)
 
-@app.route('/api/clear-meals', methods=['DELETE'])
+@app.route('/api/clear-catalog', methods=['DELETE'])
 def clear_catalog() -> Response:
     """
     Route to clear all meals (recreates the table).
