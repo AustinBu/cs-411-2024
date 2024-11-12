@@ -62,7 +62,8 @@ create_meal() {
     meal=$1
     cuisine=$2
     price=$3
-    difficulty=$4
+    difficulty=$4 
+    
 
     echo "Adding meal ($meal, $cuisine, $price, $difficulty) to the playlist..."
     curl -s -X POST "$BASE_URL/create-meal" -H "Content-Type: application/json" \
