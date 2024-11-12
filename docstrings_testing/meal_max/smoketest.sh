@@ -169,13 +169,10 @@ get_meal_by_name "Meal3"
 
 add_combatant() {
   meal=$1
-  price=$2
-  cuisine=$3
-  difficulty=$4
 
-  echo "Adding combatant: $meal ($cuisine, $difficulty)"
-  response=$(curl -s -X POST "$BASE_URL/combatant" -H "Content-Type: application/json" \
-    -d "{\"meal\":\"$meal\", \"price\":$price, \"cuisine\":\"$cuisine\", \"difficulty\":\"$difficulty\"}")
+  echo "Adding combatant: $meal"
+  response=$(curl -s -X POST "$BASE_URL/prep-combatant" -H "Content-Type: application/json" \
+    -d "{\"meal\":\"$meal\"}")
   if echo "$response" | grep -q '"status": "success"'; then
     echo "Combatant added successfully."
   else
@@ -186,7 +183,7 @@ add_combatant() {
 
 get_combatants() {
   echo "Retrieving current combatants..."
-  response=$(curl -s -X GET "$BASE_URL/combatants")
+  response=$(curl -s -X GET "$BASE_URL/get-combatants")
   if echo "$response" | grep -q '"status": "success"'; then
     echo "Combatants retrieved successfully."
     if [ "$ECHO_JSON" = true ]; then
@@ -201,7 +198,7 @@ get_combatants() {
 
 clear_combatants() {
   echo "Clearing all combatants..."
-  response=$(curl -s -X POST "$BASE_URL/combatants/clear")
+  response=$(curl -s -X POST "$BASE_URL/clear-combatants")
   if echo "$response" | grep -q '"status": "success"'; then
     echo "Combatants cleared successfully."
   else
@@ -218,7 +215,7 @@ clear_combatants() {
 
 start_battle() {
   echo "Starting a battle..."
-  response=$(curl -s -X POST "$BASE_URL/battle")
+  response=$(curl -s -X GET "$BASE_URL/battle")
   if echo "$response" | grep -q '"status": "success"'; then
     echo "Battle completed successfully."
     if [ "$ECHO_JSON" = true ]; then
@@ -231,22 +228,6 @@ start_battle() {
   fi
 }
 
-get_battle_score() {
-  combatant_id=$1
-  echo "Getting battle score for combatant with ID ($combatant_id)..."
-  response=$(curl -s -X GET "$BASE_URL/combatant/$combatant_id/score")
-  if echo "$response" | grep -q '"status": "success"'; then
-    echo "Battle score retrieved successfully."
-    if [ "$ECHO_JSON" = true ]; then
-      echo "Battle score JSON:"
-      echo "$response" | jq .
-    fi
-  else
-    echo "Failed to retrieve battle score."
-    exit 1
-  fi
-}
-
 ############################################################
 #
 # Smoke Test Execution
@@ -255,20 +236,18 @@ get_battle_score() {
 
 # Health check
 check_health
+clear_combatants
 # Add combatants
-add_combatant "Spaghetti Bolognese" 12.99 "Italian" "MED"
-add_combatant "Tacos" 9.99 "Mexican" "LOW"
-add_combatant "Sushi" 15.99 "Japanese" "HIGH"  # Should fail if list is full
+add_combatant "Meal4"
+add_combatant "Meal5"
 # Retrieve combatants
 get_combatants
 # Clear combatants and re-add for battle test
 clear_combatants
-add_combatant "Burger" 8.99 "American" "LOW"
-add_combatant "Pad Thai" 10.99 "Thai" "MED"
+add_combatant "Meal6"
+add_combatant "Meal7"
 # Start a battle
 start_battle
-# Get the battle score for one of the combatants
-get_battle_score 1  # Assuming "Burger" has ID 1
 # Clear combatants after testing
 clear_combatants
 
